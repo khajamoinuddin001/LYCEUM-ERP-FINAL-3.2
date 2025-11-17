@@ -1,3 +1,7 @@
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
