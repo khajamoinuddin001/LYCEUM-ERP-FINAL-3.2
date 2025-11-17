@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { LmsCourse, LmsLesson, LmsModule, Contact, User, QuizQuestion } from '../types';
 import { ArrowLeft, BookOpen, ChevronDown, CheckCircle2, Circle, Video, Plus, Edit, Trash2, X, Paperclip, FileQuestion, FileText, ChevronLeft, ChevronRight, MessageCircle } from './icons';
@@ -152,7 +148,7 @@ const LmsPlayerView: React.FC<LmsPlayerViewProps> = (props) => {
 
     return (
         <div className="animate-fade-in flex flex-col md:flex-row h-full gap-6">
-            {}
+            {/* sidebar */}
             <aside className="w-full md:w-1/3 xl:w-1/4 flex-shrink-0 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 h-full flex flex-col">
                 <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
                     <button onClick={onBack} className="flex items-center text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-lyceum-blue mb-2">
@@ -197,7 +193,7 @@ const LmsPlayerView: React.FC<LmsPlayerViewProps> = (props) => {
                 </div>
             </aside>
             
-            {/}
+            {/* main area */}
             <main className="w-full md:w-2/3 xl:w-3/4 flex-shrink-0 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 h-full flex flex-col">
                 {activeLesson ? (
                     <>
@@ -205,17 +201,17 @@ const LmsPlayerView: React.FC<LmsPlayerViewProps> = (props) => {
                         <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{activeLesson.title}</h1>
                     </div>
                     <div className="flex-grow overflow-y-auto">
-                        {}
+                        {/* video */}
                         {activeLesson.videoUrl && (
                             <div className="aspect-video bg-black">
                                 <video key={activeLesson.videoUrl} className="w-full h-full" controls src={activeLesson.videoUrl} />
                             </div>
                         )}
-                        {}
+                        {/* content */}
                         <div className="p-6 prose dark:prose-invert max-w-none">
                              <p>{activeLesson.content.replace(/###\s/g, '').replace(/```python\n/g, '').replace(/```/g, '')}</p>
                         </div>
-                        {}
+                        {/* tabs */}
                         <div className="px-6">
                             <div className="border-b border-gray-200 dark:border-gray-700">
                                 <nav className="-mb-px flex space-x-4">
@@ -241,12 +237,12 @@ const LmsPlayerView: React.FC<LmsPlayerViewProps> = (props) => {
                         </div>
                     </div>
                     <div className="p-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 flex-shrink-0">
-                        {}
+                        {/* navigation buttons */}
                         <div className="flex items-center gap-4">
                             <button onClick={() => prevLesson && setActiveLesson(prevLesson)} disabled={!prevLesson} className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm disabled:opacity-50"><ChevronLeft size={16} className="mr-2"/>Previous</button>
                             <button onClick={() => nextLesson && setActiveLesson(nextLesson)} disabled={!nextLesson} className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-sm disabled:opacity-50">Next<ChevronRight size={16} className="ml-2"/></button>
                         </div>
-                        {}
+                        {/* mark complete */}
                         <button onClick={() => onMarkComplete(course.id, activeLesson.id)} disabled={isCompleted} className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 disabled:bg-green-400">
                             <CheckCircle2 size={16} className="mr-2" />
                             {isCompleted ? 'Completed' : 'Mark as Complete'}
