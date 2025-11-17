@@ -32,15 +32,6 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  const distPath = join(__dirname, '..', 'dist');
-  app.use(express.static(distPath));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(join(distPath, 'index.html'));
-  });
-}
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
