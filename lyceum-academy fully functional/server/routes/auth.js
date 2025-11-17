@@ -42,7 +42,25 @@ router.post('/register', async (req, res) => {
     const user = db.prepare('SELECT id, name, email, role, permissions, mustResetPassword FROM users WHERE id = ?').get(userResult.lastInsertRowid);
     const token = generateToken(user);
 
-    res.json({ user, token });
+    // ensure permissions is an object (not a JSON string)
+let safePermissions = {};
+try {
+  if (typeof user.permissions === 'string') {
+    safePermissions = JSON.parse(user.permissions || '{}');
+  } else if (typeof user.permissions === 'object' && user.permissions != null) {
+    safePermissions = user.permissions;
+  }
+} catch (err) {
+  safePermissions = {};
+}
+
+// build a safe user copy to send
+const safeUser = {
+  ...user,
+  permissions: safePermissions
+};
+
+res.json({ user: safeUser, token });
   } catch (error) {
     console.error('Register error:', error);
     res.status(500).json({ error: 'Registration failed' });
